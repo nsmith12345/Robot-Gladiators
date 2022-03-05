@@ -28,6 +28,38 @@ function randomNumber(min, max) {
   return value;
 }
 
+var fightOrSkip = function() {
+  // ask player if they'd like to fight or skip using fightOrSkip function
+  var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+  // Enter the conditional recursive function call here!
+
+  // if player picks "skip" confirm and then stop the loop
+  if (promptFight === "skip" || promptFight === "SKIP") {
+    // confirm player wants to skip
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+    // if yes (true), leave fight
+    if (confirmSkip) {
+      window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+      // subtract money from playerMoney for skipping
+      playerInfo.playerMoney = playerInfo.money - 10;
+      shop();
+    }
+  }
+}
+
+// Conditional Recursive Function Call
+if (promptFight === "" || promptFight === null) {
+  window.alert("You need to provide a valid answer! Please try again.");
+  return fightOrSkip();
+}
+
+// repeat and execute as long as the enemy-robot is alive 
+while (playerInfo.health > 0 && enemy.health > 0) {
+  fightOrSkip(); // <-- Replace code with this function call
+  var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+
 // fight function (now with parameter for enemy's object holding name, health, and attack values)
   var Fight = function(enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
